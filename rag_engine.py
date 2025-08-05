@@ -8,9 +8,16 @@ from langchain.chains import RetrievalQA
 from langchain.chat_models import ChatOpenAI
 
 import os
+import streamlit as st
+import openai
 
 load_dotenv()
-openai_api_key = os.getenv("OPENAI_API_KEY")
+
+
+# openai_api_key = os.getenv("OPENAI_API_KEY")
+
+openai_api_key = st.secrets["OPENAI_API_KEY"]
+
 
 
 
