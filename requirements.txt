@@ -2,5 +2,6 @@ streamlit
 openai
 faiss-cpu
 langchain
+langchain-community
 tqdm
 python-dotenv
