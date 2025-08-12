@@ -1,3 +1,4 @@
+#import time 
 import streamlit as st
 from log_utils import split_logs
 from rag_engine import create_vector_store, answer_query
@@ -66,7 +67,7 @@ if page == "Log Analysis":
         chunks = split_logs(log_text)
         db = create_vector_store(chunks)
 
-        st.text_input("Ask a question about the logs:", key="question_input", on_change=ask_question)
+        # st.text_input("Ask a question about the logs:", key="question_input", on_change=ask_question)
 
         # Display history
         if st.session_state.qa_history:
@@ -76,6 +77,17 @@ if page == "Log Analysis":
                 st.markdown(f"**A{i}:** {entry['answer']}")
                 st.markdown("---")
 
+
+        # HTML anchor for scrolling
+            st.markdown("<div id='end'></div>", unsafe_allow_html=True)
+
+            # JavaScript to scroll to anchor
+            st.markdown(
+                "<script>document.getElementById('end').scrollIntoView({behavior: 'smooth'});</script>",
+                unsafe_allow_html=True
+            )
+
+        st.text_input("Ask a question about the logs:", key="question_input", on_change=ask_question)
 
 
 elif page == "About Us":

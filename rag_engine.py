@@ -20,14 +20,10 @@ load_dotenv()
 openai_api_key = st.secrets["OPENAI_API_KEY"]
 
 
-
-
 def create_vector_store(chunks):
     docs = [Document(page_content=chunk) for chunk in chunks]
     vector_store = FAISS.from_documents(docs, OpenAIEmbeddings())
     return vector_store
-
-
 
 
 # def answer_query(vector_store, query):
@@ -60,7 +56,7 @@ Answer ONLY based on the logs above, citing line numbers and timestamps where ap
     messages = []
     if system_prompt:
         messages.append({"role": "system", "content": system_prompt})
-    messages.append({"role": "user", "content": user_prompt})
+        messages.append({"role": "user", "content": user_prompt})
 
     response = client.chat.completions.create(
         model="gpt-4o-mini",
