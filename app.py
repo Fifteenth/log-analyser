@@ -13,6 +13,14 @@ Rules:
 4. Provide clear, concise answers.
 """
 
+# NEW: Sanitisation function to prevent prompt injection
+def sanitize_user_input(user_input: str) -> str:
+    blocked_patterns = ["ignore previous", "disregard instructions", "system prompt", "override rules"]
+    lowered = user_input.lower()
+    if any(p in lowered for p in blocked_patterns):
+        return "[Potential prompt injection detected — input blocked]"
+    return user_input
+
 def check_password():
     """Returns `True` if the user entered the correct password."""
     def password_entered():
@@ -50,7 +58,9 @@ if "qa_history" not in st.session_state:
     st.session_state.qa_history = []
 
 def ask_question():
-    question = st.session_state.question_input
+    # question = st.session_state.question_input
+    raw_question = st.session_state.question_input
+    question = sanitize_user_input(raw_question)  # 🔹 NEW: sanitise before sending
     if question:
         answer = answer_query(db, question, system_prompt=SYSTEM_PROMPT)
         st.session_state.qa_history.append({"question": question, "answer": answer})
