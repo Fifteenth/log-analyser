@@ -15,14 +15,16 @@ from openai import OpenAI
 load_dotenv()
 
 
-# openai_api_key = os.getenv("OPENAI_API_KEY")
+# 1openai_api_key = os.getenv("OPENAI_API_KEY")
 
 openai_api_key = st.secrets["OPENAI_API_KEY"]
 
 
 def create_vector_store(chunks):
     docs = [Document(page_content=chunk) for chunk in chunks]
-    vector_store = FAISS.from_documents(docs, OpenAIEmbeddings())
+    vector_store = FAISS.from_documents(
+        docs, 
+        OpenAIEmbeddings())
     return vector_store
 
 
