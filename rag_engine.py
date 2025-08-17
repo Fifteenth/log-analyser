@@ -15,7 +15,7 @@ from openai import OpenAI
 load_dotenv()
 
 
-# 1openai_api_key = os.getenv("OPENAI_API_KEY")
+# openai_api_key = os.getenv("OPENAI_API_KEY")
 
 openai_api_key = st.secrets["OPENAI_API_KEY"]
 
